@@ -10,6 +10,7 @@
     "watch": "NODE_ENV=development tsc-watch --noClear --onSuccess \"yarn bundle\"",
     "bundle": "NODE_ENV=development rollup -c",
     "web-ext:firefox": "web-ext run --firefox-profile ./browser-profiles/firefox --profile-create-if-missing --keep-profile-changes --watch-file dist/bundle.js --start-url https://www.spelexperten.com/sallskapsspel/strategispel/root.html --start-url https://alphaspel.se/search/?query=root",
+    "web-ext:lint": "web-ext lint --ignore-files=browser-profiles lib/",
     "api:dev": "vercel dev"
   },
   "dependencies": {

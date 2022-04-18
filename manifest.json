@@ -7,11 +7,7 @@
   "icons": {
     "48": "icons/bgg-48.jpg"
   },
-  "permissions": [
-    "webRequest",
-    "*://*.boardgamegeek.com/*",
-    "*://bgg-extension.vercel.app/*"
-  ],
+  "permissions": ["webRequest", "https://bgg-extension.vercel.app/api"],
   "content_scripts": [
     {
       "matches": ["*://*.spelexperten.com/*", "*://*.alphaspel.se/*"],

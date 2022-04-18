@@ -5,18 +5,12 @@ import { Logger } from "./classes/Logger";
 import { StringHelper } from "./classes/StringHelper";
 
 class BggExtension {
-  bgg: BoardGameGeek;
-
-  constructor() {
-    this.bgg = new BoardGameGeek();
-  }
-
   private async handleElement(element: Element | null, config: ConfigPart) {
     if (element) {
       const titleElement = element.querySelector(config.title);
       if (titleElement?.textContent) {
         const name = StringHelper.sanitizeName(titleElement.textContent);
-        const game = await this.bgg.getGame2(name);
+        const game = await BoardGameGeek.getGame(name);
         if (game) {
           DomHelper.createElement(game, config, element);
         }
@@ -30,7 +24,7 @@ class BggExtension {
     Logger.info("⚠️ Running tests!");
     const test = ["Root"];
     test.forEach(async (name) => {
-      const game = await this.bgg.getGame2(name);
+      const game = await BoardGameGeek.getGame(name);
       Logger.info("✅ Test results are in", name, game);
     });
   }
