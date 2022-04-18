@@ -1,0 +1,17 @@
+{
+  "description": "Adds BoardGameGeek rating to some webshops",
+  "manifest_version": 2,
+  "name": "bgg-extension",
+  "version": "1.0",
+  "homepage_url": "https://github.com/benjick/bgg-extension",
+  "icons": {
+    "48": "icons/bgg-48.jpg"
+  },
+  "permissions": ["webRequest", "*://*.boardgamegeek.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.spelexperten.com/*", "*://*.alphaspel.se/*"],
+      "js": ["dist/bundle.js"]
+    }
+  ]
+}
