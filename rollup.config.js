@@ -3,9 +3,9 @@ import commonjs from "@rollup/plugin-commonjs";
 import replace from "@rollup/plugin-replace";
 
 export default {
-  input: "lib/index.js",
+  input: "dist/js/index.js",
   output: {
-    file: "dist/bundle.js",
+    file: "dist/bundle/bundle.js",
     format: "iife",
   },
   plugins: [

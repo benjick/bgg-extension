@@ -9,8 +9,10 @@
     "start": "concurrently \"yarn web-ext:firefox\" \"yarn watch\"",
     "watch": "NODE_ENV=development tsc-watch --noClear --onSuccess \"yarn bundle\"",
     "bundle": "NODE_ENV=development rollup -c",
-    "web-ext:firefox": "web-ext run --firefox-profile ./browser-profiles/firefox --profile-create-if-missing --keep-profile-changes --watch-file dist/bundle.js --start-url https://www.spelexperten.com/sallskapsspel/strategispel/root.html --start-url https://alphaspel.se/search/?query=root",
-    "web-ext:lint": "web-ext lint --ignore-files=browser-profiles lib/",
+    "web-ext:firefox": "web-ext run --firefox",
+    "web-ext:lint": "web-ext lint",
+    "presign": "yarn tsc && yarn bundle",
+    "sign": "web-ext sign",
     "api:dev": "vercel dev"
   },
   "dependencies": {
@@ -24,6 +26,7 @@
     "@types/jest": "^27.4.1",
     "@vercel/node": "^1.14.1",
     "concurrently": "^7.1.0",
+    "dotenv": "^16.0.0",
     "jest": "^27.5.1",
     "jest-environment-jsdom": "^27.5.1",
     "rollup": "^2.70.2",
