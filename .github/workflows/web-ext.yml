@@ -22,14 +22,9 @@ jobs:
 
       - run: yarn lint
 
-      - name: Check if version has been updated
-        id: check
-        uses: EndBug/version-check@v1
-
-      - name: Log when changed
-        if: steps.check.outputs.changed == 'true'
-        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
-
-      - name: Log when unchanged
-        if: steps.check.outputs.changed == 'false'
-        run: 'echo "No version change :/"'
+      # TODO: Check if package.json version has updated
+      # - name: Sign
+      #   run: yarn sign
+      #   env:
+      #     AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+      #     AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
