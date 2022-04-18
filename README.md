@@ -20,6 +20,7 @@ Currently the following sites are supported:
 
 - [alphaspel.se](https://alphaspel.se/search/?query=root)
 - [spelexperten.com](https://www.spelexperten.com/cgi-bin/ibutik/AIR_ibutik.fcgi?funk=gor_sokning&AvanceradSokning=N&artnr=&varum=&artgrp=&Sprak_Suffix=SV&term=root)
+- [tabletopfinder.eu](https://www.tabletopfinder.eu/en/category/board-game)
 - [worldofboardgames.com](https://www.worldofboardgames.com/webshop-sok.php?searchString=root&search=S%F6k)
 
 > ❗ Feel free to add more sites in `/src/config`.
