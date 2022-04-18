@@ -11,9 +11,10 @@ const config = {
   run: {
     profileCreateIfMissing: true,
     firefoxProfile: "./browser-profiles/firefox",
+    chromiumProfile: "./browser-profiles/chromium",
     keepProfileChanges: true,
     watchFile: ["dist/bundle/bundle.js"],
-    browserConsole: true,
+    browserConsole: false,
     startUrl: [
       "https://www.spelexperten.com/sallskapsspel/strategispel/root.html",
       "https://alphaspel.se/search/?query=root",
