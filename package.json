@@ -1,12 +1,14 @@
 {
   "name": "bgg-extension",
+  "description": "Adds BoardGameGeek rating to some webshops",
   "version": "0.1.0",
   "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "yarn start",
-    "build": "yarn tsc && yarn bundle:prod",
+    "build": "yarn tsc && yarn generate-manifest && yarn bundle:prod",
     "prestart": "yarn build",
+    "generate-manifest": "ts-node manifest.ts",
     "start": "concurrently \"yarn firefox\" \"yarn watch\"",
     "watch": "NODE_ENV=development tsc-watch --noClear --onSuccess \"yarn bundle:dev\"",
     "bundle:prod": "NODE_ENV=production rollup -c",
@@ -25,6 +27,7 @@
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-node-resolve": "^13.2.1",
     "@rollup/plugin-replace": "^4.0.0",
+    "@types/chrome": "^0.0.181",
     "@types/jest": "^27.4.1",
     "@vercel/node": "^1.14.1",
     "concurrently": "^7.1.0",
