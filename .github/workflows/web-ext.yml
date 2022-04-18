@@ -1,0 +1,35 @@
+name: web-ext
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-ext:
+    name: Lint web-ext manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - run: yarn build
+
+      - run: yarn lint
+
+      - name: Check if version has been updated
+        id: check
+        uses: EndBug/version-check@v1
+
+      - name: Log when changed
+        if: steps.check.outputs.changed == 'true'
+        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+
+      - name: Log when unchanged
+        if: steps.check.outputs.changed == 'false'
+        run: 'echo "No version change :/"'
