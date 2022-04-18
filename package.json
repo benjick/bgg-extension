@@ -15,7 +15,8 @@
     "lint": "web-ext lint",
     "presign": "yarn build",
     "sign": "web-ext sign",
-    "api:dev": "vercel dev"
+    "api:dev": "vercel dev",
+    "vercel-build": "exit 0"
   },
   "dependencies": {
     "bgg-xml-api-client": "^0.1.10",
