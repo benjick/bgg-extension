@@ -3,7 +3,18 @@ require("dotenv").config();
 /** @type {import('./src/types/web-ext-config').WebExtConfig} */
 const config = {
   verbose: false,
-  ignoreFiles: ["browser-profiles", "dist/js", "dist/artifacts"],
+  ignoreFiles: [
+    ".github",
+    "api",
+    "browser-profiles",
+    "dist/artifacts",
+    "dist/js",
+    "manifest.ts",
+    "rollup.config.js",
+    "src",
+    "web-ext-config.js",
+    "yarn.lock",
+  ],
   artifactsDir: "dist/artifacts",
   build: {
     overwriteDest: false, // TODO: Check if CI
