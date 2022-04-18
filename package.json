@@ -5,15 +5,15 @@
   "private": true,
   "scripts": {
     "dev": "yarn start",
-    "build-extension": "yarn tsc && yarn bundle:prod",
-    "prestart": "yarn build-extension",
+    "build": "yarn tsc && yarn bundle:prod",
+    "prestart": "yarn build",
     "start": "concurrently \"yarn firefox\" \"yarn watch\"",
     "watch": "NODE_ENV=development tsc-watch --noClear --onSuccess \"yarn bundle:dev\"",
     "bundle:prod": "NODE_ENV=production rollup -c",
     "bundle:dev": "NODE_ENV=development rollup -c",
     "firefox": "web-ext run --firefox",
     "lint": "web-ext lint",
-    "presign": "yarn build-extension",
+    "presign": "yarn build",
     "sign": "web-ext sign",
     "api:dev": "vercel dev"
   },
