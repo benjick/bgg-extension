@@ -5,7 +5,6 @@ export const alphaspel: Config = {
     element: ".products .product",
     title: ".product-name",
     insertAfter: ".product-image-wrapper",
-    className: "grid",
   },
   single: {
     element: ".main-product",
@@ -14,6 +13,5 @@ export const alphaspel: Config = {
     boxStyle: {
       marginTop: "10px",
     },
-    className: "single",
   },
 };

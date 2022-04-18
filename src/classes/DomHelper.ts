@@ -1,4 +1,4 @@
-import { Config, ConfigPart } from "../config";
+import { Config, ConfigPart, ConfigPartWithId } from "../config";
 import { Game } from "../types/parsed";
 import { StringHelper } from "./StringHelper";
 
@@ -37,13 +37,13 @@ export class DomHelper {
     document.getElementById(stylesheetId)?.remove();
   }
 
-  static createClass(config: ConfigPart, key: string) {
+  static createClass(config: ConfigPartWithId) {
     const styles = {
       ...baseStyles,
       ...(config.boxStyle ?? {}),
     };
     const classString = `
-    .${elementClassName}-${key} {
+    .${elementClassName}-${config.id} {
       ${Object.entries(styles)
         .map(
           ([key, value]) => `${StringHelper.camelCaseToHyphen(key)}:${value};`
@@ -54,12 +54,11 @@ export class DomHelper {
     return classString;
   }
 
-  static createStyleSheet(config: Config) {
+  static createStyleSheet(config: ConfigPartWithId[]) {
     const stylesheet = document.createElement("style");
     stylesheet.id = stylesheetId;
     stylesheet.innerHTML = `
-    ${this.createClass(config.grid, "grid")}
-    ${this.createClass(config.single, "single")}
+    ${config.map((part) => this.createClass(part)).join("\n")}
     .${elementClassName}-text {
       margin: 4px 0 0 0;
     }
@@ -70,16 +69,13 @@ export class DomHelper {
     document.querySelector("head")?.appendChild(stylesheet);
   }
 
-  static createElement(game: Game, config: ConfigPart, parent: Element) {
+  static createElement(game: Game, config: ConfigPartWithId, parent: Element) {
     // Button
     const button = document.createElement("a");
     button.href = `${bggBaseUrl}${game.id}`;
     button.target = "_blank";
     button.rel = "noreferrer";
-    button.classList.add(
-      elementClassName,
-      `${elementClassName}-${config.className}`
-    );
+    button.classList.add(elementClassName, `${elementClassName}-${config.id}`);
     button.onclick = (e) => {
       e.stopPropagation();
     };

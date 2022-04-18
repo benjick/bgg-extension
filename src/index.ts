@@ -1,11 +1,14 @@
 import { BoardGameGeek } from "./classes/BoardGameGeek";
-import { ConfigPart, configs } from "./config";
+import { ConfigPartWithId, getConfig } from "./config";
 import { DomHelper } from "./classes/DomHelper";
 import { Logger } from "./classes/Logger";
 import { StringHelper } from "./classes/StringHelper";
 
 class BggExtension {
-  private async handleElement(element: Element | null, config: ConfigPart) {
+  private async handleElement(
+    element: Element | null,
+    config: ConfigPartWithId
+  ) {
     if (element) {
       const titleElement = element.querySelector(config.title);
       if (titleElement?.textContent) {
@@ -30,7 +33,7 @@ class BggExtension {
   }
 
   public main() {
-    const config = configs[document.location.host.replace("www.", "")];
+    const config = getConfig(document.location.host);
     if (!config) {
       Logger.info(
         `Could not find a configuration for ${document.location.host} 🤔`
@@ -40,12 +43,12 @@ class BggExtension {
     try {
       DomHelper.cleanDom();
       DomHelper.createStyleSheet(config);
-      const elements = document.querySelectorAll(config.grid.element);
-      elements.forEach(async (element) => {
-        this.handleElement(element, config.grid);
-      });
-      const element = document.querySelector(config.single.element);
-      this.handleElement(element, config.single);
+      for (const part of config) {
+        const elements = document.querySelectorAll(part.element);
+        elements.forEach(async (element) => {
+          this.handleElement(element, part);
+        });
+      }
     } catch (error) {
       Logger.error("main", error);
     }

@@ -5,7 +5,6 @@ export const worldofboardgames: Config = {
     element: ".productContainer .product",
     title: ".medium a",
     insertAfter: ".medium",
-    className: "grid",
     boxStyle: {
       color: "white !important",
     },
@@ -14,6 +13,5 @@ export const worldofboardgames: Config = {
     element: '[itemtype="http://schema.org/Product"]',
     title: "[itemprop=name]",
     insertAfter: "[itemprop=aggregateRating]",
-    className: "single",
   },
 };
