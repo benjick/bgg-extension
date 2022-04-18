@@ -1,5 +1,12 @@
 export class StringHelper {
-  static stringsToRemove = ["(exp.)", "(swe)", "(swe.)", "(eng)", "(eng.)"];
+  static stringsToRemove = [
+    "(exp.)",
+    "(swe)",
+    "(sve)",
+    "(swe.)",
+    "(eng)",
+    "(eng.)",
+  ];
 
   static escapeRegExp(string: string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

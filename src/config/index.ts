@@ -1,5 +1,6 @@
 import { alphaspel } from "./alphaspel.se";
 import { spelexperten } from "./spelexperten.com";
+import { worldofboardgames } from "./worldofboardgames.com";
 
 export interface ConfigPart {
   /** Where to find each element containing the game info in the DOM */
@@ -23,4 +24,5 @@ type Domain = string;
 export const configs: Record<Domain, Config> = {
   "spelexperten.com": spelexperten,
   "alphaspel.se": alphaspel,
+  "worldofboardgames.com": worldofboardgames,
 };
