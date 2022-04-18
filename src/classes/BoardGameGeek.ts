@@ -1,16 +1,5 @@
+import { SearchResult, Game } from "../types/parsed";
 import { Logger } from "./Logger";
-
-export interface SearchResult {
-  id: number;
-  type?: string;
-  name: string;
-  yearpublished: number;
-}
-
-export interface Game {
-  id: number;
-  average: number;
-}
 
 export class BoardGameGeek {
   parser: DOMParser;
@@ -18,6 +7,16 @@ export class BoardGameGeek {
 
   constructor() {
     this.parser = new DOMParser();
+  }
+
+  public async getGame2(game: string): Promise<Game | undefined> {
+    const url = `http://localhost:3000/api?game=${game}`;
+    const res = await fetch(url);
+    if (res.status !== 200) {
+      return undefined;
+    }
+    const json: Game = await res.json();
+    return json;
   }
 
   private createSearchParams(name: string, exact: boolean) {
@@ -76,7 +75,6 @@ export class BoardGameGeek {
     return {
       id: Number(item.getAttribute("id")),
       name: item.getElementsByTagName("name")[0].getAttribute("value")!,
-      type: item.getAttribute("type") ?? undefined,
       yearpublished: Number(
         item.getElementsByTagName("yearpublished")[0]?.getAttribute("value")
       ),
@@ -95,6 +93,7 @@ export class BoardGameGeek {
       const average = Number(ratings.getAttribute("value"));
       return {
         id,
+        name: "",
         average,
       };
     } catch (error) {

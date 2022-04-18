@@ -1,5 +1,5 @@
-import { Game } from "./BoardGameGeek";
 import { Config, ConfigPart } from "../config";
+import { Game } from "../types/parsed";
 import { StringHelper } from "./StringHelper";
 
 const bggBaseUrl = "https://boardgamegeek.com/boardgame/";

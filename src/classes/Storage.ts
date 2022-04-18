@@ -1,4 +1,4 @@
-import { Game } from "./BoardGameGeek";
+import { Game } from "../types/parsed";
 import { Logger } from "./Logger";
 
 // Bump this if the Game interface updates

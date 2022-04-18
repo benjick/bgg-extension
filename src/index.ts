@@ -1,8 +1,7 @@
-import { BoardGameGeek, Game } from "./classes/BoardGameGeek";
+import { BoardGameGeek } from "./classes/BoardGameGeek";
 import { ConfigPart, configs } from "./config";
 import { DomHelper } from "./classes/DomHelper";
 import { Logger } from "./classes/Logger";
-import { Storage } from "./classes/Storage";
 import { StringHelper } from "./classes/StringHelper";
 
 class BggExtension {
@@ -12,36 +11,12 @@ class BggExtension {
     this.bgg = new BoardGameGeek();
   }
 
-  private async getGame(name: string, useCache = true): Promise<Game | null> {
-    let game: Game | null | undefined;
-    try {
-      if (useCache) {
-        game = Storage.getGame(name);
-      }
-      if (typeof game !== "undefined") {
-        Logger.debug("✅ cache hit", name);
-        return game;
-      }
-      Logger.debug("🔴 cache miss", name);
-
-      const searchResult = await this.bgg.search(name);
-      if (searchResult) {
-        game = await this.bgg.getGame(searchResult);
-      }
-
-      Storage.setGame(name, game ?? null);
-      return game ?? null;
-    } catch (error) {
-      return null;
-    }
-  }
-
   private async handleElement(element: Element | null, config: ConfigPart) {
     if (element) {
       const titleElement = element.querySelector(config.title);
       if (titleElement?.textContent) {
         const name = StringHelper.sanitizeName(titleElement.textContent);
-        const game = await this.getGame(name);
+        const game = await this.bgg.getGame2(name);
         if (game) {
           DomHelper.createElement(game, config, element);
         }
@@ -55,7 +30,7 @@ class BggExtension {
     Logger.info("⚠️ Running tests!");
     const test = ["Root"];
     test.forEach(async (name) => {
-      const game = await this.getGame(name, false);
+      const game = await this.bgg.getGame2(name);
       Logger.info("✅ Test results are in", name, game);
     });
   }
