@@ -1,15 +1,20 @@
 name: web-ext
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created]
 
 jobs:
   web-ext:
-    name: Lint web-ext manifest
+    name: Build and upload bgg-extension
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.target_commitish }}
+
+      - name: Validate and extract release information
+        id: release
+        uses: manovotny/github-releases-for-automated-package-publishing-action@v1.0.0
 
       - uses: actions/setup-node@v3
         with:
@@ -20,11 +25,22 @@ jobs:
 
       - run: yarn build
 
-      - run: yarn lint
+      - run: yarn web-ext lint
 
-      # TODO: Check if package.json version has updated
-      # - name: Sign
-      #   run: yarn sign
-      #   env:
-      #     AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
-      #     AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+      - name: Build for Chrome
+        run: yarn web-ext build
+
+      - name: Build and sign for Firefox
+        run: yarn web-ext sign
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/artifacts/bgg*extension-${{ steps.release.outputs.version }}*
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
