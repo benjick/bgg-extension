@@ -6,7 +6,7 @@ export class StringHelper {
   }
 
   static sanitizeName(name: string) {
-    name = name.split("\n")[0];
+    name = name.trim().split("\n")[0];
     return this.stringsToRemove
       .reduce((string, toRemove) => {
         const safeNeedle = this.escapeRegExp(toRemove);

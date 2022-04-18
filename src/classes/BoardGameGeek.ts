@@ -1,3 +1,5 @@
+import { Logger } from "./Logger";
+
 export interface SearchResult {
   id: number;
   type?: string;
@@ -18,16 +20,22 @@ export class BoardGameGeek {
     this.parser = new DOMParser();
   }
 
+  private createSearchParams(name: string, exact: boolean) {
+    const searchParams = new URLSearchParams({
+      query: name.replace(/ /g, "+"),
+      type: "boardgame",
+      exact: Number(exact).toString(),
+    });
+    return searchParams.toString();
+  }
+
   public async search(
     name: string,
     exact: boolean = true
   ): Promise<SearchResult | null> {
-    const formattedName = name.replace(/ /g, "+");
-    const url = `${
-      this.baseUrl
-    }search?query=${formattedName}&type=boardgame,boardgameaccessory,boardgameexpansion&exact=${Number(
-      exact
-    )}`;
+    const searchParams = this.createSearchParams(name, exact);
+    const url = `${this.baseUrl}search?${searchParams}`;
+    Logger.debug("Fetching", name, "from", url);
     const res = await fetch(url);
     if (res.status !== 200) {
       throw new Error(`BoardGameGeek.search failed. Status: ${res.status}`);
@@ -40,8 +48,18 @@ export class BoardGameGeek {
     return searchResult ?? null;
   }
 
+  private createGameParams(id: number) {
+    const searchParams = new URLSearchParams({
+      id: id.toString(),
+      type: "boardgame",
+      stats: "1",
+    });
+    return searchParams.toString();
+  }
+
   public async getGame(item: SearchResult) {
-    const url = `${this.baseUrl}thing?id=${item.id}&type=boardgame,boardgameaccessory,boardgameexpansion&stats=1`;
+    const searchParams = this.createGameParams(item.id);
+    const url = `${this.baseUrl}thing?${searchParams}`;
     const res = await fetch(url);
     const xml = await res.text();
     return this.parseGameXml(item.id, xml);
