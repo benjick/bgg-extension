@@ -23,8 +23,8 @@ const config = {
     selfHosted: true,
   },
   sign: {
-    apiKey: process.env.AMO_JWT_ISSUER,
-    apiSecret: process.env.AMO_JWT_SECRET,
+    apiKey: process.env.AMO_JWT_ISSUER ?? "",
+    apiSecret: process.env.AMO_JWT_SECRET ?? "",
   },
 };
 
