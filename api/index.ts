@@ -62,6 +62,9 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     game = game.join("/");
   }
 
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
   if (!game) {
     res.status(404).send(`No game :(`);
     res.setHeader("Cache-Control", `public, s-maxage=${oneDay}`);
