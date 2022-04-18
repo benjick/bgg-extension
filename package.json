@@ -5,19 +5,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "yarn start",
     "build": "yarn tsc && yarn generate-manifest && yarn bundle:prod",
-    "prestart": "yarn build",
+    "predev": "yarn tsc && yarn generate-manifest && yarn bundle:dev",
+    "dev": "concurrently \"yarn firefox\" \"yarn watch\"",
     "generate-manifest": "ts-node manifest.ts",
-    "start": "concurrently \"yarn firefox\" \"yarn watch\"",
     "watch": "NODE_ENV=development tsc-watch --noClear --onSuccess \"yarn bundle:dev\"",
     "bundle:prod": "NODE_ENV=production rollup -c",
     "bundle:dev": "NODE_ENV=development rollup -c",
     "firefox": "web-ext run -t firefox-desktop",
     "chromium": "web-ext run -t chromium",
-    "lint": "web-ext lint",
-    "presign": "yarn build",
-    "sign": "web-ext sign",
     "api:dev": "vercel dev"
   },
   "dependencies": {
