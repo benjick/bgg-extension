@@ -1,4 +1,3 @@
-// bump
 import { BggSearchParams, getBggSearch, getBggThing } from "bgg-xml-api-client";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { SearchResult, Game } from "../src/types/parsed";
