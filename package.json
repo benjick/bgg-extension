@@ -5,18 +5,17 @@
   "private": true,
   "scripts": {
     "dev": "yarn start",
-    "build": "yarn tsc && yarn bundle:prod",
-    "prestart": "yarn build",
+    "build-extension": "yarn tsc && yarn bundle:prod",
+    "prestart": "yarn build-extension",
     "start": "concurrently \"yarn firefox\" \"yarn watch\"",
     "watch": "NODE_ENV=development tsc-watch --noClear --onSuccess \"yarn bundle:dev\"",
     "bundle:prod": "NODE_ENV=production rollup -c",
     "bundle:dev": "NODE_ENV=development rollup -c",
     "firefox": "web-ext run --firefox",
     "lint": "web-ext lint",
-    "presign": "yarn build",
+    "presign": "yarn build-extension",
     "sign": "web-ext sign",
-    "api:dev": "vercel dev",
-    "vercel-build": "exit 0"
+    "api:dev": "vercel dev"
   },
   "dependencies": {
     "bgg-xml-api-client": "^0.1.10",
