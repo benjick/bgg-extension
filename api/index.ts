@@ -61,6 +61,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   if (Array.isArray(game)) {
     game = game.join("/");
   }
+  game = game.replace(" - ", " ").replace("+-+", "+");
 
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Origin", "*");
