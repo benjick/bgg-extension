@@ -48,6 +48,11 @@ class BggExtension {
         elements.forEach(async (element) => {
           this.handleElement(element, part);
         });
+        if (part.observer) {
+          DomHelper.mutationObserver(part.observer, (element) => {
+            this.handleElement(element, part);
+          });
+        }
       }
     } catch (error) {
       Logger.error("main", error);

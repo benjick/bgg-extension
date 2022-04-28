@@ -4,6 +4,8 @@ import { tabletopfinder } from "./tabletopfinder.eu";
 import { worldofboardgames } from "./worldofboardgames.com";
 
 export interface ConfigPart {
+  /** If the page uses infinite scroll */
+  observer?: string;
   /** Where to find each element containing the game info in the DOM */
   element: string;
   /** Where to find the game title. Relevant to `item` above. */

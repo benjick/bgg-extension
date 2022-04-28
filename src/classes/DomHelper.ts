@@ -95,4 +95,24 @@ export class DomHelper {
     button.append(text);
     parent.querySelector(config.insertAfter)?.after(button);
   }
+
+  static mutationObserver(element: string, callback: (e: Element) => void) {
+    const target = document.querySelector(element);
+    if (!target) {
+      return;
+    }
+
+    const observer = new MutationObserver((mutationsList, _observer) => {
+      const addedNodes = mutationsList.flatMap((record) =>
+        Array.from(record.addedNodes)
+      );
+      for (const node of addedNodes) {
+        callback(node as Element);
+      }
+    });
+
+    observer.observe(target, {
+      childList: true,
+    });
+  }
 }
