@@ -11,7 +11,7 @@ interface WebExtGlobals {
   noInput: boolean;
 }
 
-interface WebExtRun extends WebExtGlobals {
+interface WebExtRun {
   /** The extensions runners to enable. Specify this option multiple times to run against multiple targets. */
   target: Array<"firefox-desktop" | "firefox-android" | "chromium">;
   /** Path or alias to a Firefox executable such as firefox-bin or firefox.exe. If not specified, the default Firefox will be used. You can specify the
@@ -41,7 +41,7 @@ used. */
   browserConsole: boolean;
 }
 
-interface WebExtLint extends WebExtGlobals {
+interface WebExtLint {
   /** The type of output to generate. default: text */
   output: "json" | "text";
   /** Output only metadata as JSON. default: false */
