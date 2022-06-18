@@ -1,4 +1,4 @@
-import { Config, ConfigPart, ConfigPartWithId } from "../config";
+import { ConfigPartWithId } from "../config";
 import { Game } from "../types/parsed";
 import { StringHelper } from "./StringHelper";
 
