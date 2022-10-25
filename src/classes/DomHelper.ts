@@ -15,11 +15,11 @@ const baseStyles: Partial<CSSStyleDeclaration> = {
   boxShadow:
     "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
   boxSizing: "border-box",
-  color: "white",
+  color: "white !important",
   cursor: "pointer",
   display: "flex",
   justifyContent: "space-between",
-  fontSize: "18px",
+  fontSize: "18px !important",
   fontWeight: "500",
   lineHeight: "16px",
   margin: "0px auto 10px",
@@ -96,8 +96,8 @@ export class DomHelper {
     parent.querySelector(config.insertAfter)?.after(button);
   }
 
-  static mutationObserver(element: string, callback: (e: Element) => void) {
-    const target = document.querySelector(element);
+  static mutationObserver(parent: string, callback: (e: Element) => void) {
+    const target = document.querySelector(parent);
     if (!target) {
       return;
     }
@@ -113,6 +113,28 @@ export class DomHelper {
 
     observer.observe(target, {
       childList: true,
+    });
+  }
+
+  static waitForElement(
+    selector: string
+  ): Promise<ReturnType<typeof document.querySelector>> {
+    return new Promise((resolve) => {
+      if (document.querySelector(selector)) {
+        return resolve(document.querySelector(selector));
+      }
+
+      const observer = new MutationObserver((mutations) => {
+        if (document.querySelector(selector)) {
+          resolve(document.querySelector(selector));
+          observer.disconnect();
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
     });
   }
 }

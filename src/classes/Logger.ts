@@ -1,7 +1,7 @@
 const isDevelopment = process.env.NODE_ENV === "development";
 
 export class Logger {
-  static prefix = "🎲:bgg::";
+  static prefix = "🎲bgg:";
 
   static debug(...params: any[]) {
     if (isDevelopment) {

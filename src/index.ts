@@ -9,17 +9,26 @@ class BggExtension {
     element: Element | null,
     config: ConfigPartWithId
   ) {
-    if (element) {
-      const titleElement = element.querySelector(config.title);
-      if (titleElement?.textContent) {
-        const name = StringHelper.sanitizeName(titleElement.textContent);
-        const game = await BoardGameGeek.getGame(name);
-        if (game) {
-          DomHelper.createElement(game, config, element);
-        }
-      } else {
-        Logger.error("Could not find title element", element, config.title);
+    try {
+      if (!element) {
+        throw new Error("No element found");
       }
+      const titleElement = element.querySelector(config.title);
+      if (!titleElement?.textContent) {
+        throw new Error("No textContent found");
+      }
+      const name = StringHelper.sanitizeName(titleElement.textContent);
+      const game = await BoardGameGeek.getGame(name);
+      if (game) {
+        DomHelper.createElement(game, config, element);
+      }
+    } catch (error: any) {
+      Logger.info(
+        "Could not find title element",
+        element,
+        config.title,
+        error.message
+      );
     }
   }
 
@@ -44,15 +53,17 @@ class BggExtension {
       DomHelper.cleanDom();
       DomHelper.createStyleSheet(config);
       for (const part of config) {
-        const elements = document.querySelectorAll(part.element);
-        elements.forEach(async (element) => {
-          this.handleElement(element, part);
-        });
-        if (part.observer) {
-          DomHelper.mutationObserver(part.observer, (element) => {
+        DomHelper.waitForElement(part.observer ?? part.element).then(() => {
+          const elements = document.querySelectorAll(part.element);
+          elements.forEach(async (element) => {
             this.handleElement(element, part);
           });
-        }
+          if (part.observer) {
+            DomHelper.mutationObserver(part.observer, (element) => {
+              this.handleElement(element, part);
+            });
+          }
+        });
       }
     } catch (error) {
       Logger.error("main", error);

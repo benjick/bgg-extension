@@ -4,8 +4,10 @@ export class StringHelper {
     "(swe)",
     "(sve)",
     "(swe.)",
+    "(sv)",
     "(eng)",
     "(eng.)",
+    "(nordic)",
   ];
 
   static escapeRegExp(string: string) {
