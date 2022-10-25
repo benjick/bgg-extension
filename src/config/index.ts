@@ -1,6 +1,7 @@
 import { alphaspel } from "./alphaspel.se";
 import { spelexperten } from "./spelexperten.com";
 import { tabletopfinder } from "./tabletopfinder.eu";
+import { webhallen } from "./webhallen.com";
 import { worldofboardgames } from "./worldofboardgames.com";
 
 export interface ConfigPart {
@@ -29,6 +30,7 @@ export const configs: Record<Domain, Config> = {
   "alphaspel.se": alphaspel,
   "worldofboardgames.com": worldofboardgames,
   "tabletopfinder.eu": tabletopfinder,
+  "webhallen.com": webhallen,
 };
 
 export function getConfig(domain: string): ConfigPartWithId[] | undefined {

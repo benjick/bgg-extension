@@ -16,11 +16,12 @@ Adds BoardGameGeek rating to some webshops
 
 ## Support
 
-Currently the following sites are supported:
+The following sites are supported:
 
 - [alphaspel.se](https://alphaspel.se/search/?query=root)
 - [spelexperten.com](https://www.spelexperten.com/cgi-bin/ibutik/AIR_ibutik.fcgi?funk=gor_sokning&AvanceradSokning=N&artnr=&varum=&artgrp=&Sprak_Suffix=SV&term=root)
 - [tabletopfinder.eu](https://www.tabletopfinder.eu/en/category/board-game)
+- [webhallen.com](https://www.webhallen.com/se/category/3600-Bradspel?f=text%5Eroot)
 - [worldofboardgames.com](https://www.worldofboardgames.com/webshop-sok.php?searchString=root&search=S%F6k)
 
 > ❗ Feel free to add more sites in `/src/config`.
@@ -38,11 +39,11 @@ Currently the following sites are supported:
 1. Go to https://github.com/benjick/bgg-extension/releases
 2. Download the `bgg-extension-XXX.zip` file and unpack it
 3. Point your browser to `chrome://extensions/`
-4. Check "Developer mode" in the top-right corner, then "Load unpacked" and nagivate to your unpacked folder
+4. Check "Developer mode" in the top-right corner, then "Load unpacked" and navigate to your unpacked folder
 
 ## Development
 
-1. Install dependecies: `yarn`
+1. Install dependencies: `yarn``
 2. Start file-watcher and launch firefox: `yarn dev`
 3. You can also launch chrome/chromium with `yarn chromium`
 
